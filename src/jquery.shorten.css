@@ -1,0 +1,18 @@
+/*
+  Additional classes available for styling
+
+  .morelink {}
+  .allcontent {}
+  .shortcontent {}
+
+ */
+
+.shortcontent.inline-trigger {
+  display: inline;
+  padding-right: 5px;
+}
+
+.hidden-dupe {
+  display: none !important;
+  visibility: hidden !important;
+}

@@ -1,5 +1,5 @@
 /*
- * jQuery Shorten plugin 1.1.0
+ * jQuery Shorten plugin 1.2.0
  *
  * Copyright (c) 2014 Viral Patel
  * http://viralpatel.net
@@ -26,7 +26,8 @@
             moreText: "more",
             lessText: "less",
             errMsg: null,
-            force: false
+            force: false,
+            inline: false
         };
 
         if (settings) {
@@ -47,14 +48,14 @@
                 if ($this.hasClass('less')) {
                     $this.removeClass('less');
                     $this.html(config.moreText);
-                    $this.parent().prev().prev().show(); // shortcontent
-                    $this.parent().prev().hide(); // allcontent
+                    $this.parent().prev().prev().removeClass('hidden-dupe'); // shortcontent
+                    $this.parent().prev().addClass('hidden-dupe'); // allcontent
 
                 } else {
                     $this.addClass('less');
                     $this.html(config.lessText);
-                    $this.parent().prev().prev().hide(); // shortcontent
-                    $this.parent().prev().show(); // allcontent
+                    $this.parent().prev().prev().addClass('hidden-dupe'); // shortcontent
+                    $this.parent().prev().removeClass('hidden-dupe'); // allcontent
                 }
                 return false;
             }
@@ -131,12 +132,13 @@
                     c+=config.ellipsesText;
                 }
 
-                var html = '<div class="shortcontent">' + c +
+                var inlineClass = config.inline ? ' ' + 'inline-trigger' : '';
+                var html = '<div class="shortcontent' + inlineClass + '">' + c +
                     '</div><div class="allcontent">' + content +
                     '</div><span><a href="javascript://nop/" class="morelink">' + config.moreText + '</a></span>';
 
                 $this.html(html);
-                $this.find(".allcontent").hide(); // Hide all text
+                $this.find(".allcontent").addClass('hidden-dupe'); // Hide all text
                 $('.shortcontent p:last', $this).css('margin-bottom', 0); //Remove bottom margin on last paragraph as it's likely shortened
             }
         });
